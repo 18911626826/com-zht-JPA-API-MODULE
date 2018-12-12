@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.zht.JPA</groupId>
+    <artifactId>Father</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  
+  <groupId>com.zht.JPA</groupId>
+  <artifactId>Father-COMMON</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  
+  <name>Father-COMMON</name>
+  <url>http://maven.apache.org</url>
+  
+  <dependencies>
+    <dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>pcitc</groupId>
+			<artifactId>ettool</artifactId>
+			<version>1.2.7</version>
+		</dependency>
+  </dependencies>
+  
+  <repositories>
+		<!-- <repository>
+			<id>private</id>
+			<url>http://10.248.37.45/nexus/content/groups/Sinopec-IMP-Public</url>
+		</repository> -->
+		<repository>
+			<id>private</id><!-- 此处将   原来的   nexus  改成   private  pom不报错 -->
+			<layout>default</layout>
+			<name>Nexus Repository</name>
+			<url>http://localhost:8081/nexus/content/groups/public/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>	
+	</repositories>
+	
+	<distributionManagement>
+		<repository>
+			<id>nexus-release</id>
+			<name>nexusReleaseRepo</name>
+			<url>http://localhost:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshot</id>
+			<name>nexusSnapshotsRepo</name>
+			<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus</id>
+			<name>Nexus Repository</name>
+			<url>http://localhost:8081/nexus/content/groups/public/</url>
+			<layout>default</layout>
+			<releases><enabled>true</enabled></releases>
+			<snapshots><enabled>true</enabled></snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+</project>

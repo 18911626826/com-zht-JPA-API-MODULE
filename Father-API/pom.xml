@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.zht.JPA</groupId>
+    <artifactId>Father</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  
+  <groupId>com.zht.JPA</groupId>
+  <artifactId>Father-API</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  
+  <name>Father-API</name>
+  <url>http://maven.apache.org</url>
+  
+  <dependencies>
+    <dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+        <dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-devtools</artifactId>
+        	<version>1.4.0.RELEASE</version>
+        </dependency>
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.16.16</version>
+    		<scope>provided</scope>
+		</dependency>
+		<!-- 引入COMMON模块 -->
+		<dependency>
+            <groupId>com.zht.JPA</groupId>
+            <artifactId>Father-COMMON</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+  </dependencies>
+  
+  <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                	<fork>true</fork>
+                </configuration>
+            </plugin>
+        </plugins>
+        <finalName>Father-API</finalName>
+   </build>
+    
+   <!-- 配置资源库私服  单个maven项目     所有maven统一配置   需要在Settings中指定 -->
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<layout>default</layout>
+			<name>Nexus Repository</name>
+			<url>http://localhost:8081/nexus/content/groups/public/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus</id>
+			<name>Nexus Repository</name>
+			<url>http://localhost:8081/nexus/content/groups/public/</url>
+			<layout>default</layout>
+			<releases><enabled>true</enabled></releases>
+			<snapshots><enabled>true</enabled></snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	
+	<!-- 上传jar资源到私服   配置   配合Settings配置 -->
+	<distributionManagement>
+		<repository>
+			<id>nexus-release</id>
+			<name>nexusReleaseRepo</name>
+			<url>http://localhost:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshot</id>
+			<name>nexusSnapshotsRepo</name>
+			<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement> 
+</project>
