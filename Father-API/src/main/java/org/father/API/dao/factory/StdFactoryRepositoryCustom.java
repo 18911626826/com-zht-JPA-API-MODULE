@@ -1,4 +1,4 @@
-package org.father.API.dao;
+package org.father.API.dao.factory;
 /**
  * 分厂  持久层自定义  接口
  * @author haitao.zhang 2018-11-8
@@ -10,7 +10,7 @@ import java.util.List;
 import org.Father.COMMON.Pagination;
 import org.Father.COMMON.PaginationBean;
 import org.Father.COMMON.util.CommonResult;
-import org.father.API.pojo.stdFactory;
+import org.father.API.pojo.factory.StdFactory;
 
 public interface StdFactoryRepositoryCustom {
 	
@@ -19,7 +19,7 @@ public interface StdFactoryRepositoryCustom {
 	 * @param stdFactory 分厂信息
 	 * @return
 	 */
-	CommonResult updateStdFactory(stdFactory stdFactory);
+	CommonResult updateStdFactory(StdFactory stdFactory);
 	
 	/**
 	 * 分厂信息     删除（持久层）
@@ -33,14 +33,14 @@ public interface StdFactoryRepositoryCustom {
 	 * @param facID 分厂id
 	 * @return
 	 */
-	stdFactory getSingleStdFactory(Long facID);
+	StdFactory getSingleStdFactory(Long facID);
 	
 	/**
 	 * 分厂信息     得到多个分厂（持久层）
 	 * @param facIDs 分厂id数组
 	 * @return
 	 */
-	List<stdFactory> getStdFactoryList(Long[] facIDs);
+	List<StdFactory> getStdFactoryList(Long[] facIDs);
 	
 	/**
 	 * 分厂信息     分页获得分厂列表（持久层）
@@ -48,7 +48,7 @@ public interface StdFactoryRepositoryCustom {
 	 * @param name 模糊查询条件   分厂编码   分厂名称
 	 * @return
 	 */
-	PaginationBean<stdFactory> getStdFactory(Pagination page,String name);
+	PaginationBean<StdFactory> getStdFactory(Pagination page,String name);
 	
 	/**
 	 * 分厂信息    根据分厂编码校验（持久层）
@@ -66,9 +66,7 @@ public interface StdFactoryRepositoryCustom {
 	
 	/**
 	 * 分厂信息     得到多个分厂（持久层）用于excel导出
-	 * @param facIDs 分厂id数组
-	 * @param name   编码或者名称
 	 * @return
 	 */
-	List<stdFactory> getStdFactoryListForExport();
+	List<StdFactory> getStdFactoryListForExport(String orgId);
 }

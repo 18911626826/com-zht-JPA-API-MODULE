@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<exportFile>
+    <fileName>STD_FACTORY</fileName>
+    <!--exportType 0:EXCEL2007,1:csv);
+     titile 导出展示的列title名
+       alias对应的别名，映射的字段名-->
+    <exportType>0</exportType>
+    <cell>
+        <title>编码</title>
+        <alias>facCode</alias>
+    </cell>
+    <cell>
+        <title>名称</title>
+        <alias>facName</alias>
+    </cell>
+    <cell>
+        <title>排序</title>
+        <alias>facNO</alias>
+    </cell>
+    <!-- <cell>
+        <title>所属企业</title>
+        <alias>orgName</alias>
+    </cell> -->
+</exportFile>

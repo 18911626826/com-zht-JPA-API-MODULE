@@ -14,27 +14,37 @@
 	</parent>
 
 	<properties>
-    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-  	</properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
 
 	<dependencies>
-
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.9</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>com.zht.JPA</groupId>
-				<artifactId>API</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<artifactId>Father-API</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.zht.JPA</groupId>
-				<artifactId>COMMON</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<artifactId>Father-COMMON</artifactId>
+				<version>${project.version}</version>
 			</dependency>
+			<!-- poi excel操作 -->
 		</dependencies>
 	</dependencyManagement>
 
@@ -42,8 +52,8 @@
 		<module>Father-API</module>
 		<module>Father-COMMON</module>
 	</modules>
-	
-	<!-- 上传jar资源到私服   配置   配合Settings配置 -->
+
+	<!-- 上传jar资源到私服 配置 配合Settings配置 -->
 	<distributionManagement>
 		<repository>
 			<id>nexus-release</id>
@@ -55,5 +65,5 @@
 			<name>nexusSnapshotsRepo</name>
 			<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
-	</distributionManagement> 
+	</distributionManagement>
 </project>
