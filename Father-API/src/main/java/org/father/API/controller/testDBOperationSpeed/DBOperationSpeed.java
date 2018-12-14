@@ -19,10 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import org.father.API.pojo.TestDBOperationSpeed.testDbOperationSpeed;
 import org.father.API.service.testDB.ServiceTestDB;
@@ -30,12 +28,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import sun.print.resources.serviceui;
 
 /**
  * 
@@ -59,7 +56,7 @@ public class DBOperationSpeed {
 	private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private ServiceTestDB serviceTestDB;
-	@Transactional
+	
 	public void testJdbcTemplate(List<testDbOperationSpeed> list) {
 
 		String sql = "insert into TEST_DB_OPERATION_SPEED(NAME) VALUES(?);";

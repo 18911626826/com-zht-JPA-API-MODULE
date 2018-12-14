@@ -16,11 +16,13 @@ package org.father.API.service.testDB;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.father.API.pojo.TestDBOperationSpeed.testDbOperationSpeed;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 /**  
 
@@ -35,27 +37,24 @@ import org.springframework.stereotype.Service;
 */
 @Service
 public class ServiceTestDB {
-	private EntityManager entityManager;
-	
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
 	
 	@PersistenceContext(name = "EntityManagerFactory")
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
+	private EntityManager entityManager;
 	
-	@Transactional
+	@Transactional//service层开启事务    如果放在controller层  依然会报错
 	public void testEntityManager(List<testDbOperationSpeed> list) {
-
-		for (int i = 0; i < list.size(); i++) {
-			testDbOperationSpeed speed = list.get(i);
-			entityManager.persist(speed);
-			if (i % 1000 == 0) {
-				entityManager.flush();
-				entityManager.clear();
+		/*EntityTransaction et=entityManager.getTransaction();//此种开启事务方法   行不通   报错
+		if(et!=null) {
+				et.begin();*/
+			for (int i = 0; i < list.size(); i++) {
+				testDbOperationSpeed speed = list.get(i);
+				entityManager.persist(speed);
+				if (i % 1000 == 0) {
+					entityManager.flush();
+					entityManager.clear();
+				}
 			}
-		}
+			/*et.commit();
+		}*/
 	}
 }
