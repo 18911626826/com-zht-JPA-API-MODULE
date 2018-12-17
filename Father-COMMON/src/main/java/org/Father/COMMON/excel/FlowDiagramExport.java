@@ -24,10 +24,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.EntityManager;
-
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -297,8 +293,8 @@ public abstract class FlowDiagramExport<T> {
         font.setBoldweight((short) 700);
         font.setFontHeight((short) 340);
         cellStyle.setFont(font);
-        cellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);// 垂直
-        cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);// 水平
+        cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);// 垂直
+        cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);// 水平
         Cell cell = row.createCell((short) 3);
         cell.setCellValue(header);
         cell.setCellStyle(cellStyle);
