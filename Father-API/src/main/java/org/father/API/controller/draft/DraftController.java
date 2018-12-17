@@ -2,6 +2,7 @@ package org.father.API.controller.draft;
 
 import java.io.IOException;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,22 +39,19 @@ public class DraftController{
      * @return
      * @throws Exception
      */
-    @GetMapping("/exportDraft")
+    @PostMapping("/exportDraft")
     public void exportManageExcel(HttpServletResponse response,TOrFlowDiagramDraft obj) throws Exception {
-            	
+    	ServletOutputStream sos=response.getOutputStream();
         //单独导出流程图
     	XSSFWorkbook workbook =new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("流程图");
         
         workbook=util.exportExcel(workbook,obj);
-        
         response.setContentType("application/octet-stream");
         response.setHeader("Content-disposition", "attachment;filename="+"export.xlsx");//Excel文件名
-        try {
-            response.flushBuffer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        	workbook.write(response.getOutputStream());
+       
+        	workbook.write(sos);
+        	sos.flush();
+        	sos.close();
     }
 }
