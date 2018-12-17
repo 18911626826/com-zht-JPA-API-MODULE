@@ -1,18 +1,17 @@
 package org.father.API.controller.result;
 
-import java.io.IOException;
-
+import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-
+import org.Father.COMMON.excel.FlowDiagramExport;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.father.API.dao.result.TOrFlowDiagramRepository;
 import org.father.API.pojo.result.TOrFlowDiagram;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,4 +58,27 @@ public class ResultController {
         sos.close();
     }
     
+    /**  
+
+    * <p>Title: Result</p>  
+
+    * <p>Description: </p>  
+
+    * @author haitao.zhang  
+
+    * @date 2018年12月17日 上午11:44:01 
+
+    */
+    @Component
+    private class Result extends FlowDiagramExport<TOrFlowDiagram>{
+    	
+    	@Autowired
+        private TOrFlowDiagramRepository tOrFlowDiagramRepository;
+    	
+    	@Override
+    	protected List<TOrFlowDiagram> getList(TOrFlowDiagram t) {
+    		return tOrFlowDiagramRepository.getByResultId(t.getResultId());
+    	}
+    	
+    }
 }

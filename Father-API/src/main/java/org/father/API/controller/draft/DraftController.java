@@ -1,15 +1,19 @@
 package org.father.API.controller.draft;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.Father.COMMON.excel.FlowDiagramExport;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.father.API.dao.draft.TOrFlowDiagramDraftRepository;
 import org.father.API.pojo.draft.TOrFlowDiagramDraft;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,5 +57,29 @@ public class DraftController{
         	workbook.write(sos);
         	sos.flush();
         	sos.close();
+    }
+    
+    /**  
+
+    * <p>Title: Draft</p>  
+
+    * <p>Description: </p>  
+
+    * @author haitao.zhang  
+
+    * @date 2018年12月17日 下午3:02:34 
+
+    */
+    @Component
+    private class Draft extends FlowDiagramExport<TOrFlowDiagramDraft>{
+    	
+    	@Autowired
+    	private TOrFlowDiagramDraftRepository TOrFlowDiagramDraftRepository;
+
+    	@Override
+    	protected List<TOrFlowDiagramDraft> getList(TOrFlowDiagramDraft t) {
+    		return TOrFlowDiagramDraftRepository.getBypimsModelIdAndCaseIdAndPeriodIdAndDataSourceCode(t.getPimsModelId(),t.getCaseId(),t.getPeriodId(),t.getDataSourceCode());
+    	}
+
     }
 }
