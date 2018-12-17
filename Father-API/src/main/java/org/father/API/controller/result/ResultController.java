@@ -28,9 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "api/pims/orResult", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class ResultController {
-
-    @Autowired
-    private TOrFlowDiagramRepository tOrFlowDiagramRepository;
     
     @Autowired
     private Result result;
