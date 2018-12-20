@@ -1,14 +1,23 @@
 package org.father.API.controller.factory;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.websocket.server.PathParam;
 
 import org.Father.COMMON.Pagination;
 import org.Father.COMMON.PaginationBean;
+import org.Father.COMMON.mvc.MyValueConstants;
 import org.Father.COMMON.util.CommonResult;
 import org.apache.commons.lang3.StringUtils;
+import org.father.API.dao.factory.StdFactoryRepository;
+import org.father.API.pojo.factory.StdFactory;
 import org.father.API.service.factory.StdFactoryService;
+import org.father.API.service.factory.dto.StdFactoryDTO;
 import org.father.API.service.factory.entity.StdFactoryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +27,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ValueConstants;
 
 /*import com.pcitc.dm.common.excel.domain.SubheadingVo;
 import com.pcitc.dm.common.excel.export.ExportConfigFactory;
@@ -39,6 +50,9 @@ public class StdFactoryController {
 
 	@Autowired
 	private StdFactoryService stdFactoryService;
+	
+	@Autowired
+	private StdFactoryRepository stdFactoryRepository;
 
 	/**
 	 * 分厂信息 添加（ 控制层）
@@ -124,8 +138,10 @@ public class StdFactoryController {
 	@GetMapping()
 	private PaginationBean<StdFactoryEntity> getStdFactory(Pagination page, String name) {
 		PaginationBean<StdFactoryEntity> pageFactory = new PaginationBean<>();
-		if (StringUtils.isNotEmpty(name))
-			name = name.trim();// 不等于空就去掉空格
+		/*if (StringUtils.isNotEmpty(name))
+			name = name.trim();*/// 不等于空就去掉空格
+		if(StringUtils.isNotBlank(name)) name=StringUtils.trimToNull(name.trim());//不等于空就去掉空格
+		
 		try {
 			return stdFactoryService.getStdFactory(page, name);
 		} catch (Exception e) {
@@ -133,6 +149,17 @@ public class StdFactoryController {
 			e.printStackTrace();
 			return pageFactory;
 		}
+	}
+	
+	@GetMapping("/getPageJPA")
+	public PaginationBean<StdFactory> getStdFactoryJPA(Pagination page,@RequestParam(value="name",defaultValue=MyValueConstants.DEFAULT_EMPTY_STRING)String name){
+		PageRequest pr=new PageRequest(page.getPageIndex(), page.getPageSize());
+		
+		Page<StdFactory> stdsPage=stdFactoryRepository.getPageJPA("%"+name+"%","%"+name+"%",pr);
+		
+		PaginationBean<StdFactory> pageff=new PaginationBean<>(page,stdsPage.getTotalElements());
+		pageff.setPageList(stdsPage.getContent());
+		return pageff;
 	}
 
 	/**
